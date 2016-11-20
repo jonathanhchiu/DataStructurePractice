@@ -5,7 +5,8 @@
 * @author Jonathan Chiu 
 * @version 1.0
 */ 
-public class SinglyLinkedList<T> implements LinkedListInterface<T> {
+
+class DoublyLinkedList<T> implements LinkedListInterface<T> {
 
 	/**
 	* The first node of the linked list.
@@ -51,18 +52,25 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	* @param item Generic item to insert to the list.
 	*/
 	public void add(T item, int position) {
-		
+
 		// Initialize a new Node
 		Node<T> newNode = new Node<T>(item);
+
+		// Check if list is empty 
+		if (head == null) {
+			head = newNode;
+			return;
+		}
 
 		// Check if we want to insert at the front
 		if (position == 0) {
 			newNode.setNext(head);
+			head.setPrev(newNode);
 			head = newNode;
 
 		}
 
-		// Insert somewhere else in the list
+		// insert at somewhere else in the list 
 		else {
 
 			// Runner Node to traverse List
@@ -75,9 +83,14 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 
 			// Insert after (position - 1)
 			Node<T> tempNode = runnerNode.getNext();
-			runnerNode.setNext(newNode);
-			newNode.setNext(tempNode);
 
+			// Redirect connections
+			runnerNode.setNext(newNode);
+			tempNode.setPrev(newNode);
+
+			// Insert new node
+			newNode.setNext(tempNode);
+			newNode.setPrev(runnerNode);
 		}
 	}
 
@@ -88,7 +101,7 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	* @return data that the node at specified position is holding
 	*/
 	public T get(int position) {
-
+		
 		// Check if the list is empty 
 		if (head == null) {
 			System.out.println("List is empty.");
@@ -141,9 +154,9 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 			runnerNode = runnerNode.getNext();
 		}
 
-		// Delete node at position 
+		// Reconnect linked list to delete node
 		trailingNode.setNext(runnerNode.getNext());
-		return;
+		runnerNode.getNext().setPrev(trailingNode);
 	}
 
 	/**
@@ -175,38 +188,31 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	}
 
 	/**
-	* Reverse the linked list.
+	* Print the contents of the linked list in reverse order.
 	*/
-	public void reverse() {
+	public void printReverse() {
 
-		// Check if the list is empty
+		// Check for empty list
 		if (head == null) {
 			System.out.println("List is empty.");
 			return;
 		}
 
-		Node<T> currNode = head;
-		Node<T> prevNode = null;
-		Node<T> nextNode = null;
+		// Grab the first node in the list
+		Node<T> nextNode = head;
 
-		// Reverse the list 
-		while (currNode != null) {
-
-			// Grab the next node
-			nextNode = currNode.getNext();
-
-			// Reverse 
-			currNode.setNext(prevNode);
-
-			// Move everything over
-			prevNode = currNode;
-			currNode = nextNode;
+		// Print out nodes one at a time
+		while (nextNode.getNext() != null) {
+			nextNode = nextNode.getNext();
 		}
 
-		// Reset head node
-		head = prevNode;
+		// nextNode is now the last node of the list 
+		while (nextNode != null) {
+			System.out.println(nextNode.getData().toString());
+			nextNode = nextNode.getPrev();
+		}
 	}
-
+	
 	/**
 	* Hidden class within SinglyLinkedList implementing a genric Node to be
 	* used for the linked list.
@@ -214,6 +220,7 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	class Node<T> {
 		private T item;
 		private Node<T> next;
+		private Node<T> prev;
 
 		/**
 		* Constructor function for a Node. Node must be initialized with an
@@ -224,6 +231,7 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		*/
 		public Node(T item) {
 			this.item = item;
+			prev = null;
 			next = null;
 		}
 
@@ -234,6 +242,24 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		*/
 		public T getData() {
 			return item;
+		}
+
+		/**
+		* Accessor method for the next Node.
+		*
+		* {@link Node#prev}
+		*/
+		public Node<T> getPrev() {
+			return prev;
+		}
+
+		/**
+		* Mutator method for the item that the node holds.
+		*
+		* {@link Node#prev}
+		*/
+		public void setPrev(Node<T> prev) {
+			this.prev = prev;
 		}
 
 		/**
