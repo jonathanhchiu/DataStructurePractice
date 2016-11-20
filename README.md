@@ -3,10 +3,10 @@ DataStructurePractice is a compilation of common data structures, written in eas
 
 ### What's Included
 * Singly linked list
-* Doubly linked list (comming soon!)
-* Stack (using arrays)
-* Stack (using linked lists)
-* Heap (using linked lists)
+* Doubly linked list
+* Stack (with arrays)
+* Stack (with linked lists) (coming soon!)
+* Heap (using linked lists) (coming soon!)
 * ...and more to come!
 
 ### Thanks for Visiting!
