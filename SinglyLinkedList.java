@@ -8,34 +8,30 @@
 public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 
 	/**
-	* The first node of the linked list.
+	* The first node of the linked list. Allows for insertion in the front to
+	* have O(1) runtime.
 	*/
 	private Node<T> head = null;
 
 	/**
-	* Obtain the size of the linked list
+	* The last node of the linked list. Allows for insertion in the back to
+	* have O(1) runtime.
+	*/
+	private Node<T> tail = null;
+
+	/**
+	* The number of elements in the linked list. Allows for checking whether
+	* we are inserting to the back to have O(1) runtime.
+	*/
+	private int size = 0;
+
+	/**
+	* Obtain the size of the linked list.
 	*
 	* @return size of the linked list
 	*/
 	public int size() {
-
-		// check if list is empty
-		if (head == null) {
-			return 0;
-		}
-
-		// Instantiate counter and iterator node
-		int counter = 0;
-		Node<T> nextNode = head; 
-
-		// Find the last node
-		while (nextNode != null) {
-			nextNode = nextNode.getNext();
-			counter++;
-		}
-
-		// Return the number of nodes travelled to to reach end
-		return counter;
+		return size;
 	}
 
 	/**
@@ -55,30 +51,65 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		// Initialize a new Node
 		Node<T> newNode = new Node<T>(item);
 
-		// Check if we want to insert at the front
-		if (position == 0) {
-			newNode.setNext(head);
+		// List is empty: insert first node into the list
+		if (head == null) {
 			head = newNode;
-
+			tail = newNode;
 		}
 
-		// Insert somewhere else in the list
+		// List is nonempty 
 		else {
 
-			// Runner Node to traverse List
-			Node<T> runnerNode = head;
-
-			// Find node at (position - 1)
-			for (int index = 1; index < position; index++) {
-				runnerNode = runnerNode.getNext();
+			// Check if we want to insert at the front: O(1) runtime.
+			if (position == 0) {
+				newNode.setNext(head);
+				head = newNode;
 			}
 
-			// Insert after (position - 1)
-			Node<T> tempNode = runnerNode.getNext();
-			runnerNode.setNext(newNode);
-			newNode.setNext(tempNode);
+			// Insert to the back of the list
+			else if (position == size) {
+				tail.setNext(newNode);
+				tail = newNode;
+			} 
 
+			// Insert somewhere else in the list
+			else {
+
+				// Runner Node to traverse List
+				Node<T> runnerNode = head;
+
+				// Find node at (position - 1)
+				for (int index = 1; index < position; index++) {
+					runnerNode = runnerNode.getNext();
+				}
+
+				// Insert after (position - 1)
+				Node<T> tempNode = runnerNode.getNext();
+				runnerNode.setNext(newNode);
+				newNode.setNext(tempNode);
+			}
 		}
+
+		// Increment the size of the list
+		size++;
+	}
+
+	/** 
+	* Add node to the front of the list with O(1) runtime.
+	* 
+	* @param item The item to add to the list
+	*/
+	public void addFirst(T item) {
+		add(item, 0);
+	}
+
+	/**
+	* Add node to the back of the list with O(1) runtime.
+	*
+	* @param item The item to add to the list.
+	*/
+	public void addLast(T item) {
+		add(item, size);
 	}
 
 	/**
@@ -95,26 +126,57 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 			return null;
 		}
 
-		// Check that the position is less than size
-		if (this.size() - 1 == position) {
-			System.out.println("Position exceeds size.");
-			return null;
-		}
+		// List is not empty
+		else {
 
-		// Forward current node to position
-		Node<T> currNode = head;
-		for (int index = 0; index < position; index++)  {
-			currNode = currNode.getNext();
-		}
+			// Check if we want the first node
+			if (position == 0) {
+				return head.getData();
+			}
 
-		// Return data that the node contains
-		return currNode.getData();
+			// Check if we want the last node
+			else if (position == size - 1) {
+				return tail.getData();
+			}
+
+			// Data we want is held by node in middle of list
+			else {
+
+				// Forward current node to position
+				Node<T> currNode = head;
+				for (int index = 0; index < position; index++)  {
+					currNode = currNode.getNext();
+				}
+
+				// Return data that the node contains
+				return currNode.getData();
+			}
+		}
+	}
+
+	/** 
+	* Get the data held by the first node in the list in O(1) runtime.
+	*
+	* @return data held by the first node
+	*/
+	public T getFirst() {
+		return get(0);
+	}
+
+	/**
+	* Get the data held by the last node in the list in O(1) runtime.
+	*
+	* @return data held by the last node
+	*/
+	public T getLast() {
+		return get(size - 1);
 	}
 
 	/**
 	* Deletes the node at a specified position.
 	*
 	* @param position 0 indexed position corresponding to the node to delete
+	* @return data held by the deleted node
 	*/
 	public T remove(int position) {
 		T deletedData = null;
@@ -122,35 +184,57 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		// Check if the list is empty
 		if (head == null) {
 			System.out.println("List is empty.");
-			return deletedData;
 		}
 
-		// Check if the node we want to delete is the first one
-		if (position == 0) {
+		// List is nonempty
+		else {
 
-			// Save data in node
-			deletedData = head.getData();
+			// The node we want to delete is the first one
+			if (position == 0) {
 
-			// delete the head node 
-			head = head.getNext();
-			return deletedData;
+				// Save data and delete 
+				deletedData = head.getData();
+				head = head.getNext();
+			}
+
+			// Node we want to delete is not the first one
+			else {
+
+				// Using the runner technique with two runners
+				Node<T> runnerNode = head;
+				Node<T> trailingNode = null;
+
+				// Find node at position and one before it
+				for (int index = 0; index < position; index++) {
+					trailingNode = runnerNode;
+					runnerNode = runnerNode.getNext();
+				}
+
+				// Save data in node
+				deletedData = runnerNode.getData();
+
+				// Check if the node we deleted is the last one 
+				if (position == size() - 1) {
+					tail = trailingNode;
+				}
+
+				// Delete node at position 
+				trailingNode.setNext(runnerNode.getNext());
+			}
 		}
 
-		// Find node at position and one before it
-		Node<T> runnerNode = head;
-		Node<T> trailingNode = null;
-
-		for (int index = 0; index < position; index++) {
-			trailingNode = runnerNode;
-			runnerNode = runnerNode.getNext();
-		}
-
-		// Save data in node
-		deletedData = runnerNode.getData();
-
-		// Delete node at position 
-		trailingNode.setNext(runnerNode.getNext());
+		// Decrement the size and return data held by deleted node
+		size--;
 		return deletedData;
+	}
+
+	/**
+	* Deletes the first node in the list with O(1) runtime.
+	*
+	* @return data held by the deleted node
+	*/
+	public T removeFirst() {
+		return remove(0);
 	}
 
 	/**
@@ -158,6 +242,7 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	*/
 	public void clear() {
 		head = null;
+		tail = null;
 	}
 
 	/**

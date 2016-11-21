@@ -3,23 +3,18 @@ public class tester {
 	public static void main(String[] args) {
 
 		System.out.println("Instantiating new list-based stack.");
-		ListBasedStack<Integer> stack = new ListBasedStack<Integer>();
+		SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
 
-		System.out.println("Adding 3 elements into the stack.");
-		stack.push(new Integer(1));
-		stack.push(new Integer(2));
-		stack.push(new Integer(3));
-		stack.print();
-
-		System.out.println("Popping 1 element from the stack.");
-		System.out.println(stack.pop().toString());
-		System.out.println(stack.pop().toString());
-		System.out.println(stack.pop().toString());
-		System.out.println(stack.pop().toString());
-		
-		System.out.println("Printing.");
-		stack.print();
-		System.out.println("Check if list is empty.");
-		System.out.println(stack.isEmpty());
+		ll.addFirst(new Integer(1));
+		System.out.println("First.");
+		ll.add(new Integer(2), 1);
+		System.out.println("Second.");
+		ll.addLast(new Integer(3));
+		System.out.println("Third.");
+		ll.print();
+		System.out.println("Size is: " + ll.size());
+		System.out.println("Deleted: " + ll.remove(0).toString());
+		System.out.println("Size is: " + ll.size());
+		ll.print();
 	}
 }

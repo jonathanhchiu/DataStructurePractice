@@ -2,19 +2,21 @@ import java.util.EmptyStackException;
 
 /**
 * List based implementation of a stack, includes isEmpty, pop, push, peek,
-* and size methods. This class utilizes a doubly linked list as the main stack.
+* and size methods. This class utilizes a singly linked list as the main stack.
+* Unlike the array-based stack, the list-based stack does not have a capacity,
+* as linked lists do not have a capacity.
 *
 * @author Jonathan Chiu
 */
 public class ListBasedStack<T> implements StackInterface<T> {
-	private DoublyLinkedList<T> stack;
+	private SinglyLinkedList<T> stack;
 
 	/**
 	* Constructor for the stack. Does not take a capacity, as there are no
 	* capacity to linked lists.
 	*/
 	public ListBasedStack() {
-		stack = new DoublyLinkedList<T>();
+		stack = new SinglyLinkedList<T>();
 	}
 
 	/**
@@ -33,11 +35,8 @@ public class ListBasedStack<T> implements StackInterface<T> {
 	*/
 	public void push(T item) {
 
-		// Get the size of the Linked list
-		int size = stack.size();
-
-		// Push to the last position on the list
-		stack.add(item, size);
+		// Push to first position in list
+		stack.add(item, 0);
 	}
 
 	/** 
@@ -56,7 +55,7 @@ public class ListBasedStack<T> implements StackInterface<T> {
 		}
 
 		// Return the data held by the last node in the list
-		return stack.remove(size - 1);
+		return stack.remove(0);
 	}
 
 	/**
@@ -67,11 +66,8 @@ public class ListBasedStack<T> implements StackInterface<T> {
 	*/
 	public T peek() {
 
-		// Get the size of the Linked list
-		int size = stack.size();
-
 		// Return the data held by the last node in the list
-		return stack.get(size - 1);
+		return stack.get(0);
 	}
 
 	/**

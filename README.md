@@ -6,9 +6,10 @@ These data structures are written generically and are ready-to-use/play with!
 * Singly linked list
 * Doubly linked list
 * Stack (with arrays)
-* Stack (with doubly linked lists)
-* Heap (using linked lists) (coming soon!)
-* ...and more to come!
+* Stack (with linked lists)
+* Queue (with linked lists)
+* Binary Tree (coming soon!)
+* Binary Search Tree (coming soon!)
 
 ### Thanks for Visiting!
 Jonathan Chiu
