@@ -116,20 +116,24 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 	*
 	* @param position 0 indexed position corresponding to the node to delete
 	*/
-	public void remove(int position) {
+	public T remove(int position) {
+		T deletedData = null;
 
 		// Check if the list is empty
 		if (head == null) {
 			System.out.println("List is empty.");
-			return;
+			return deletedData;
 		}
 
 		// Check if the node we want to delete is the first one
 		if (position == 0) {
 
+			// Save data in node
+			deletedData = head.getData();
+
 			// delete the head node 
 			head = head.getNext();
-			return;
+			return deletedData;
 		}
 
 		// Find node at position and one before it
@@ -141,9 +145,12 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 			runnerNode = runnerNode.getNext();
 		}
 
+		// Save data in node
+		deletedData = runnerNode.getData();
+
 		// Delete node at position 
 		trailingNode.setNext(runnerNode.getNext());
-		return;
+		return deletedData;
 	}
 
 	/**

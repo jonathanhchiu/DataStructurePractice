@@ -70,7 +70,21 @@ class DoublyLinkedList<T> implements LinkedListInterface<T> {
 
 		}
 
-		// insert at somewhere else in the list 
+		// Insert at the end of the list
+		else if (position == this.size()) {
+			Node<T> runnerNode = head;
+
+			// Find node at (position - 1)
+			for (int index = 1; index < position; index++) {
+				runnerNode = runnerNode.getNext();
+			}
+
+			// Insert after (position - 1)
+			runnerNode.setNext(newNode);
+			newNode.setPrev(runnerNode);
+		}
+
+		// Insert in the middle of the list
 		else {
 
 			// Runner Node to traverse List
@@ -109,7 +123,7 @@ class DoublyLinkedList<T> implements LinkedListInterface<T> {
 		}
 
 		// Check that the position is less than size
-		if (this.size() - 1 == position) {
+		if (this.size() - 1 < position) {
 			System.out.println("Position exceeds size.");
 			return null;
 		}
@@ -129,34 +143,68 @@ class DoublyLinkedList<T> implements LinkedListInterface<T> {
 	*
 	* @param position 0 indexed position corresponding to the node to delete
 	*/
-	public void remove(int position) {
+	public T remove(int position) {
+		T deletedData = null;
 
 		// Check if the list is empty
 		if (head == null) {
 			System.out.println("List is empty.");
-			return;
+			return deletedData;
 		}
 
 		// Check if the node we want to delete is the first one
 		if (position == 0) {
 
+			// grab the data
+			deletedData = head.getData();
+
 			// delete the head node 
 			head = head.getNext();
-			return;
+			return deletedData;
 		}
 
-		// Find node at position and one before it
-		Node<T> runnerNode = head;
-		Node<T> trailingNode = null;
+		// Node we want to delete is the last one
+		else if (position == this.size() - 1) {
 
-		for (int index = 0; index < position; index++) {
-			trailingNode = runnerNode;
-			runnerNode = runnerNode.getNext();
+			// Find node at position and one before it
+			Node<T> runnerNode = head;
+			Node<T> trailingNode = null;
+
+			for (int index = 0; index < position; index++) {
+				trailingNode = runnerNode;
+				runnerNode = runnerNode.getNext();
+			}
+
+			// Grab the data to be deleted
+			deletedData = runnerNode.getData();
+
+			// Delete the node
+			trailingNode.setNext(runnerNode.getNext());
+			return deletedData;
 		}
 
-		// Reconnect linked list to delete node
-		trailingNode.setNext(runnerNode.getNext());
-		runnerNode.getNext().setPrev(trailingNode);
+		// Node we want to delete is in the middle of the list
+		else {
+
+			// Find node at position and one before it
+			Node<T> runnerNode = head;
+			Node<T> trailingNode = null;
+
+			for (int index = 0; index < position; index++) {
+				trailingNode = runnerNode;
+				runnerNode = runnerNode.getNext();
+			}
+
+			// Save data in node to be deleted
+			deletedData = runnerNode.getData();
+
+			// Reconnect linked list to delete node
+			trailingNode.setNext(runnerNode.getNext());
+			runnerNode.getNext().setPrev(trailingNode);
+
+			// Return deleted data
+			return deletedData;
+		}
 	}
 
 	/**

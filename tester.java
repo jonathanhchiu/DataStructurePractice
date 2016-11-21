@@ -2,28 +2,24 @@ public class tester {
 
 	public static void main(String[] args) {
 
-		System.out.println("Instantiating new linked list.");
-		DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
+		System.out.println("Instantiating new list-based stack.");
+		ListBasedStack<Integer> stack = new ListBasedStack<Integer>();
 
-		System.out.println("Inserting 4 numbers.");
-		ll.add(new Integer(1), 0);
-		ll.add(new Integer(2), 0);
-		ll.add(new Integer(3), 0);
-		ll.add(new Integer(4), 0);
-		ll.print();
-		System.out.println("Size is: " + ll.size());
-		ll.printReverse();
+		System.out.println("Adding 3 elements into the stack.");
+		stack.push(new Integer(1));
+		stack.push(new Integer(2));
+		stack.push(new Integer(3));
+		stack.print();
 
-		System.out.println("Inserting another.");
-		ll.add(new Integer(5), 2);
-		ll.print();
-		System.out.println("Size is: " + ll.size());
-		ll.printReverse();
-
-		System.out.println("Deleting at position 2.");
-		ll.remove(2);
-		ll.printReverse();
-		ll.size();
-
+		System.out.println("Popping 1 element from the stack.");
+		System.out.println(stack.pop().toString());
+		System.out.println(stack.pop().toString());
+		System.out.println(stack.pop().toString());
+		System.out.println(stack.pop().toString());
+		
+		System.out.println("Printing.");
+		stack.print();
+		System.out.println("Check if list is empty.");
+		System.out.println(stack.isEmpty());
 	}
 }
