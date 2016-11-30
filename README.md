@@ -11,7 +11,6 @@ These data structures are written generically and are ready-to-use/play with! Ea
 * HashTable (with ArrayLists)
 * Binary Search Tree (coming soon!)
 
-<<<<<<< Updated upstream
 ### Play:
 I've included main methods in each data structure class that samples various methods. To run, type the following into your terminal:
 ```
@@ -21,6 +20,5 @@ I've included main methods in each data structure class that samples various met
 ```
 Make sure you have JDK and Makefile (optional) installed!
 
-
-### Thanks for Visiting!
+### Thanks!
 Jonathan Chiu
