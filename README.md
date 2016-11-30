@@ -11,5 +11,14 @@ These data structures are written generically and are ready-to-use/play with! Ea
 * HashTable (with ArrayLists)
 * Binary Search Tree (coming soon!)
 
+### Play:
+I've included main methods in each data structure class that samples various methods. To run, type the following into your terminal:
+```
+>>> git clone https://github.com/jonathanhchiu/DataStructures.git
+>>> cd Hashtable
+>>> make run
+```
+Make sure you have JDK and Makefile (optional) installed!
+
 ### Thanks for Visiting!
 Jonathan Chiu
