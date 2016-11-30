@@ -8,7 +8,7 @@ These data structures are written generically and are ready-to-use/play with! Ea
 * Stack (with arrays)
 * Stack (with linked lists)
 * Queue (with linked lists)
-* HashTable (coming soon!)
+* HashTable (with ArrayLists)
 * Binary Search Tree (coming soon!)
 
 ### Thanks for Visiting!
