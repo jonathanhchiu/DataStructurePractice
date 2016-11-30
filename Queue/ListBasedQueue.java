@@ -76,6 +76,20 @@ public class ListBasedQueue<T> implements QueueInterface<T> {
 	* Prints the contents of the queue.
 	*/
 	public void print() {
+		System.out.println("Front: ");
+		queue.print();
+		System.out.println("Back: ");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Instantiating List Based Queue.");
+		ListBasedQueue<Integer> queue = new ListBasedQueue<Integer>();
+		System.out.println("Adding elements.");
+		queue.enqueue(new Integer(1));
+		queue.enqueue(new Integer(2));
+		queue.enqueue(new Integer(3));
+		queue.enqueue(new Integer(4));
+		queue.enqueue(new Integer(5));
 		queue.print();
 	}
 }

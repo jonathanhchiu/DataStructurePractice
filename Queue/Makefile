@@ -4,5 +4,8 @@ queue: interface
 interface:
 	javac QueueInterface.java
 
+run: queue
+	java -cp LinkedList.jar:. ListBasedQueue
+	
 clean:
 	rm *.class

@@ -6,5 +6,9 @@ doublylist: interface
 
 interface:
 	javac LinkedListInterface.java
+
+run: singlylist
+	java SinglyLinkedList
+	
 clean:
 	rm *.class

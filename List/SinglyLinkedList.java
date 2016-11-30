@@ -260,10 +260,12 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		Node<T> nextNode = head;
 
 		// Print out nodes one at a time
+		System.out.println("Front: ");
 		while (nextNode != null) {
 			System.out.println(nextNode.getData().toString());
 			nextNode = nextNode.getNext();
 		}
+		System.out.println("Back: ");
 	}
 
 	/**
@@ -345,5 +347,17 @@ public class SinglyLinkedList<T> implements LinkedListInterface<T> {
 		public void setNext(Node<T> next) {
 			this.next = next;
 		}
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Instantiating Singly Linked List.");
+		SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
+		System.out.println("Adding elements.");
+		ll.addLast(new Integer(1));
+		ll.addLast(new Integer(2));
+		ll.addLast(new Integer(3));
+		ll.addLast(new Integer(4));
+		ll.addLast(new Integer(5));
+		ll.print();
 	}
 }
