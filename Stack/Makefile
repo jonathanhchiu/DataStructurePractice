@@ -7,5 +7,8 @@ liststack: interface
 interface:
 	javac StackInterface.java
 
+run: arraystack
+	java ArrayBasedStack
+	
 clean:
 	rm *.class

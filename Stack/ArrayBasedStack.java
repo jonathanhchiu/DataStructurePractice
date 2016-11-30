@@ -73,4 +73,29 @@ public class ArrayBasedStack<T> implements StackInterface<T> {
 	public int size() {
 		return size;
 	}
+
+	public void print() {
+
+		System.out.println("Top: ");
+		for (int i = size - 1; i >= 0; i--) {
+			System.out.println(stack[i]);
+		}
+		System.out.println("Bottom: ");
+	}
+
+	public static void main(String[] args) {
+		int capacity = 11;
+
+		System.out.println("Instantiating Array Based Stack.");
+		ArrayBasedStack<Integer> stack = new ArrayBasedStack<Integer>(capacity);
+
+		System.out.println("Pushing items.");
+		stack.push(new Integer(1));
+		stack.push(new Integer(2));
+		stack.push(new Integer(3));
+		stack.push(new Integer(4));
+		stack.push(new Integer(5));
+		stack.print();
+
+	}
 }
