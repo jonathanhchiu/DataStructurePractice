@@ -17,7 +17,7 @@ I've included main methods in each data structure class that samples various met
 >>> cd Hashtable
 >>> make run
 ```
-Make sure you have JDK and Makefile (optional) installed!
+Make sure you have JDK and Makefile (optional) installed! I am developing on Java version 8, update 11.
 
 ### Thanks!
 Jonathan Chiu
